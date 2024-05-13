@@ -3,7 +3,7 @@ from datetime import datetime
 from entity.Cases import Case
 from entity.Incident import Incident
 from entity.Report import Report
-
+from entity.IncidentType import IncidentType
 from exception.MyExceptions import DatabaseConnectionError, IncidentIDNotFoundException, IncidentTypeNotFoundException, CaseNotFoundException
 
 
