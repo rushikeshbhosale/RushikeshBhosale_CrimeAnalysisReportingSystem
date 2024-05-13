@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../CMS/.idea/CMS.iml" filepath="$PROJECT_DIR$/../CMS/.idea/CMS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/CRS.iml" filepath="$PROJECT_DIR$/.idea/CRS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../pythonProject/Lecture Python/.idea/Lecture Python.iml" filepath="$PROJECT_DIR$/../pythonProject/Lecture Python/.idea/Lecture Python.iml" />
+    </modules>
+  </component>
+</project>
