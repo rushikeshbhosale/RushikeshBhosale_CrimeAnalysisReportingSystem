@@ -1,5 +1,5 @@
-CREATE DATABASE CrimeReportingSystem;
-USE CrimeReportingSystem;
+CREATE DATABASE CRS;
+USE CRS;
 
 CREATE TABLE Incident (
     incident_id INT PRIMARY KEY AUTO_INCREMENT,
