@@ -3,6 +3,11 @@
 ## Introduction
 Welcome to the Crime Analysis and Reporting System (C.A.R.S.) project! This project aims to develop a comprehensive system for managing crime incidents, victims, suspects, law enforcement agencies, officers, evidence, and reports using Python programming language. The system provides law enforcement agencies with a robust platform for crime data management, analysis, and reporting.
 
+## Technologies Used - 
+- **Python**
+- **MySQL**
+- **GIT**
+
 ## Project Structure
 The project follows a modular structure, with different components organized into packages:
 
