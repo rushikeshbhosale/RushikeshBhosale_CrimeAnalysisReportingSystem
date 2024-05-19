@@ -120,7 +120,7 @@ class CrimeAnalysisServiceImpl:
         return incidents
 
     def generateIncidentReport(self, incident: Incident, reporting_officer_id: int, report_date: datetime,
-                               status: str) -> Report:
+                               status: str, report_details: str) -> Report:
         report = None
         try:
             # Validate report date
@@ -130,12 +130,12 @@ class CrimeAnalysisServiceImpl:
             cursor = self.connection.cursor()
             query = "INSERT INTO Report (incident_id, reporting_officer_id, report_date, report_details, status) VALUES (%s, %s, %s, %s, %s)"
             cursor.execute(query, (
-                incident.get_incident_id(), reporting_officer_id, report_date, "Generated report details", status))
+                incident.get_incident_id(), reporting_officer_id, report_date, report_details, status))
             self.connection.commit()
 
             # Create a new Report instance with auto-generated report_id and other details
             report = Report(None, incident.get_incident_id(), reporting_officer_id, report_date,
-                            "Generated report details", status)
+                            report_details, status)
         except Exception as e:
             print(f"Error generating incident report: {e}")
         return report
@@ -172,13 +172,18 @@ class CrimeAnalysisServiceImpl:
             print(f"Error getting case details: {e}")
         return case_details
 
-    def updateCaseDetails(self, case: Case) -> bool:
+    def updateCaseDetails(self, case_id: str, new_status: str) -> bool:
         try:
             cursor = self.connection.cursor()
             query = "UPDATE Cases SET case_status = %s WHERE case_id = %s"
-            cursor.execute(query, (case.get_case_status(), case.get_case_id()))
+            cursor.execute(query, (new_status, case_id))
+            if cursor.rowcount == 0:  # No rows were updated
+                raise CaseNotFoundException(f"Case with ID {case_id} not found.")
             self.connection.commit()
             return True
+        except CaseNotFoundException as e:
+            # Re-raise the custom exception
+            raise e
         except Exception as e:
             print(f"Error updating case details: {e}")
             return False

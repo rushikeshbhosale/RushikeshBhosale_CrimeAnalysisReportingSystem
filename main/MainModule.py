@@ -58,7 +58,7 @@ class MainModule:
                 print("10. Delete Incident Report")
                 print("11. Create Case")
                 print("12. Get Case Details (For Specific Case ID)")
-                print("13. Update Case Details")
+                print("13. Update Case Status")
                 print("14. Get All Cases")
                 print("15. Delete Case")
                 print("16. Exit")
@@ -119,18 +119,22 @@ class MainModule:
                     except ValueError as e:
                         print(f"Error: {e}")
 
+
                 elif choice == '7':
                     incident_id = input("Enter incident ID to generate report: ")
                     reporting_officer_id = input("Enter reporting officer ID: ")
                     report_date = input("Enter report date (YYYY-MM-DD): ")
                     status = input("Enter report status: ")
+                    report_details = input("Enter report details: ")  # New input for report details
                     try:
                         report_date = datetime.strptime(report_date, "%Y-%m-%d").date()
                         if report_date > datetime.now().date():
                             raise ValueError("Report date cannot be in the future.")
                         incident = crime_analysis_service.getIncidentById(incident_id)
                         if incident:
-                            report = crime_analysis_service.generateIncidentReport(incident, reporting_officer_id, report_date, status)
+                            # Pass the additional report details to the generateIncidentReport method
+                            report = crime_analysis_service.generateIncidentReport(incident, reporting_officer_id,
+                                                                                   report_date, status, report_details)
                             if report:
                                 print("Incident report generated successfully.")
                             else:
@@ -139,6 +143,7 @@ class MainModule:
                             print("Incident not found.")
                     except ValueError as e:
                         print(f"Error: {e}")
+
 
                 elif choice == '8':
                     incident_id = input("Enter incident ID to view report: ")
@@ -195,16 +200,21 @@ class MainModule:
                     else:
                         print("Case not found.")
 
+
+
                 elif choice == '13':
                     case_id = input("Enter case ID to update: ")
-                    new_description = input("Enter new case description: ")
+                    new_status = input("Enter new case status: ")
                     try:
-                        if crime_analysis_service.updateCaseDescription(case_id, new_description):
-                            print("Case description updated successfully.")
+                        if crime_analysis_service.updateCaseDetails(case_id, new_status):
+                            print("Case status updated successfully.")
                         else:
                             print(f"Case with ID {case_id} not found.")
+                    except CaseNotFoundException as e:
+                        print(f"Error: {e}")
                     except IncidentIDNotFoundException as e:
                         print(f"Error: {e}")
+
 
                 elif choice == '14':
                     all_cases = crime_analysis_service.getAllCases()

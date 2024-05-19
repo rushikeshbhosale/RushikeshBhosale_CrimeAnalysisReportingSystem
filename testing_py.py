@@ -39,7 +39,7 @@ class TestCrimeAnalysisService(unittest.TestCase):
     def test_update_incident_status(self):
         # Test updateIncidentStatus method
         incident_id = 1  # valid incident ID
-        new_status = "Open"
+        new_status = "Closed"
         result = self.service.updateIncidentStatus(new_status, incident_id)
         self.assertTrue(result)
         # assertions to check if status is updated correctly
@@ -62,8 +62,8 @@ class TestCrimeAnalysisService(unittest.TestCase):
 
     def test_create_case(self):
         # Test createCase method
-        case_description = "Case description"
-        case_status = "Draft"
+        case_description = "Theft at Shop"
+        case_status = "Finalized"
         result = self.service.createCase(case_description, case_status)
         self.assertTrue(result)
 
@@ -74,9 +74,10 @@ class TestCrimeAnalysisService(unittest.TestCase):
         self.assertTrue(result)
 
     def test_update_case_details(self):
-        # Test updateCaseDetails method
-        case = Case(1, "Case description", "Finalized")
-        result = self.service.updateCaseDetails(case)
+        # Create a Case object with the desired case ID and new status
+        case_id = 10
+        new_status = "Finalized"
+        result = self.service.updateCaseDetails(case_id, new_status)
         self.assertTrue(result)
 
     def test_get_all_cases(self):
@@ -104,7 +105,7 @@ class TestCrimeAnalysisService(unittest.TestCase):
 
     def test_delete_case(self):
         # Test deleteCase method
-        case_id = 4  # valid case ID
+        case_id = 11  # valid case ID
         result = self.service.deleteCase(case_id)
         self.assertTrue(result)
 
