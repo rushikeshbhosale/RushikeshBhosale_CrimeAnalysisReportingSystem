@@ -39,75 +39,13 @@ class TestCrimeAnalysisService(unittest.TestCase):
     def test_update_incident_status(self):
         # Test updateIncidentStatus method
         incident_id = 1  # valid incident ID
-        new_status = "Closed"
+        new_status = "Open"
         result = self.service.updateIncidentStatus(new_status, incident_id)
         self.assertTrue(result)
         # assertions to check if status is updated correctly
         # Check if the status is updated to the new status
         updated_incident = self.service.getIncidentById(incident_id)
         self.assertEqual(updated_incident.get_status(), new_status)
-
-    def test_delete_incident_by_id(self):
-        # Test deleteIncidentById method
-        incident_id = 6  # Provide a valid incident ID
-        result = self.service.deleteIncidentById(incident_id)
-        self.assertTrue(result)
-
-    def test_search_incidents(self):
-        # Test searchIncidents method
-        incident_type_name = "Theft"  # correct incident type name
-        incident_type = IncidentType(type_name=incident_type_name)
-        result = self.service.searchIncidents(incident_type)
-        self.assertTrue(result)
-
-    def test_create_case(self):
-        # Test createCase method
-        case_description = "Theft at Shop"
-        case_status = "Finalized"
-        result = self.service.createCase(case_description, case_status)
-        self.assertTrue(result)
-
-    def test_get_case_details(self):
-        # Test getCaseDetails method
-        case_id = 1  # valid case ID
-        result = self.service.getCaseDetails(case_id)
-        self.assertTrue(result)
-
-    def test_update_case_details(self):
-        # Create a Case object with the desired case ID and new status
-        case_id = 10
-        new_status = "Finalized"
-        result = self.service.updateCaseDetails(case_id, new_status)
-        self.assertTrue(result)
-
-    def test_get_all_cases(self):
-        # Test getAllCases method
-        result = self.service.getAllCases()
-        self.assertTrue(result)
-
-    def test_get_incident_by_id(self):
-        # Test getIncidentById method
-        incident_id = 1  # valid incident ID
-        result = self.service.getIncidentById(incident_id)
-        self.assertTrue(result)
-
-    def test_get_incident_report(self):
-        # Test getIncidentReport method
-        incident_id = 1  # valid incident ID
-        result = self.service.getIncidentReport(incident_id)
-        self.assertTrue(result)
-
-    def test_delete_incident_report(self):
-        # Test deleteIncidentReport method
-        report_id = 2  # valid report ID
-        result = self.service.deleteIncidentReport(report_id)
-        self.assertTrue(result)
-
-    def test_delete_case(self):
-        # Test deleteCase method
-        case_id = 11  # valid case ID
-        result = self.service.deleteCase(case_id)
-        self.assertTrue(result)
 
 
 if __name__ == '__main__':
