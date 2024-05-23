@@ -26,12 +26,20 @@ class MainModule:
 
     @staticmethod
     def display_incidents(incidents):
-        print("\nIncidents:")
+        print("\nIncidents:\n")
         # Sort incidents by date in ascending order
         sorted_incidents = sorted(incidents, key=lambda x: x.get_incident_date())
         for incident in sorted_incidents:
-            print(
-                f"Incident ID: {incident.get_incident_id()}, Type: {incident.get_incident_type()}, Date: {incident.get_incident_date()}, Status: {incident.get_status()}")
+            print(f"Incident ID: {incident.get_incident_id()}")
+            print(f"Type: {incident.get_incident_type()}")
+            print(f"Date: {incident.get_incident_date()}")
+            print(f"Status: {incident.get_status()}")
+            print(f"Location Latitude: {incident.get_location_latitude()}")
+            print(f"Location Longitude: {incident.get_location_longitude()}")
+            print(f"Description: {incident.get_description()}")
+            print(f"Victim ID: {incident.get_victim_id()}")
+            print(f"Suspect ID: {incident.get_suspect_id()}")
+            print("-" * 40)
 
     @staticmethod
     def main():
@@ -234,6 +242,7 @@ class MainModule:
                         print(f"Error: {e}")
 
                 elif choice == '16':
+                    print("Thank You!")
                     print("Exiting program.")
                     break
 
