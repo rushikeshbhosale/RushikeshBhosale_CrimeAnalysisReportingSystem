@@ -6,12 +6,10 @@ from entity.Report import Report
 from entity.IncidentType import IncidentType
 from exception.MyExceptions import DatabaseConnectionError, IncidentIDNotFoundException, IncidentTypeNotFoundException, CaseNotFoundException
 
-
 class MainModule:
 
     @staticmethod
     def get_incident_details():
-        # Get input for creating an incident
         incident_type = input("Enter incident type: ")
         incident_date = input("Enter incident date (YYYY-MM-DD): ")
         location_latitude = input("Enter location latitude: ")
@@ -20,14 +18,12 @@ class MainModule:
         status = input("Enter incident status: ")
         victim_id = input("Enter victim ID: ")
         suspect_id = input("Enter suspect ID: ")
-        # Create an instance of Incident with the provided details
         incident = Incident(None, incident_type, incident_date, location_latitude, location_longitude, description, status, victim_id, suspect_id)
         return incident
 
     @staticmethod
     def display_incidents(incidents):
         print("\nIncidents:\n")
-        # Sort incidents by date in ascending order
         sorted_incidents = sorted(incidents, key=lambda x: x.get_incident_date())
         for incident in sorted_incidents:
             print(f"Incident ID: {incident.get_incident_id()}")
@@ -44,11 +40,8 @@ class MainModule:
     @staticmethod
     def main():
         try:
-            # Create an instance of the service implementation
             crime_analysis_service = CrimeAnalysisServiceImpl()
-
             while True:
-                # Display menu options
                 print("\n" + "-" * 52)
                 print("|" + " " * 20 + "Welcome to" + " " * 20 + "|")
                 print("|" + " " * 6 + "'Crime Analysis and Reporting System'" + " " * 7 + "|")
@@ -70,7 +63,6 @@ class MainModule:
                 print("14. Get All Cases")
                 print("15. Delete Case")
                 print("16. Exit")
-
                 choice = input("\nEnter your choice: ")
 
                 if choice == '1':
@@ -127,22 +119,19 @@ class MainModule:
                     except ValueError as e:
                         print(f"Error: {e}")
 
-
                 elif choice == '7':
                     incident_id = input("Enter incident ID to generate report: ")
                     reporting_officer_id = input("Enter reporting officer ID: ")
                     report_date = input("Enter report date (YYYY-MM-DD): ")
                     status = input("Enter report status: ")
-                    report_details = input("Enter report details: ")  # New input for report details
+                    report_details = input("Enter report details: ")
                     try:
                         report_date = datetime.strptime(report_date, "%Y-%m-%d").date()
                         if report_date > datetime.now().date():
                             raise ValueError("Report date cannot be in the future.")
                         incident = crime_analysis_service.getIncidentById(incident_id)
                         if incident:
-                            # Pass the additional report details to the generateIncidentReport method
-                            report = crime_analysis_service.generateIncidentReport(incident, reporting_officer_id,
-                                                                                   report_date, status, report_details)
+                            report = crime_analysis_service.generateIncidentReport(incident, reporting_officer_id, report_date, status, report_details)
                             if report:
                                 print("Incident report generated successfully.")
                             else:
@@ -151,7 +140,6 @@ class MainModule:
                             print("Incident not found.")
                     except ValueError as e:
                         print(f"Error: {e}")
-
 
                 elif choice == '8':
                     incident_id = input("Enter incident ID to view report: ")
@@ -208,8 +196,6 @@ class MainModule:
                     else:
                         print("Case not found.")
 
-
-
                 elif choice == '13':
                     case_id = input("Enter case ID to update: ")
                     new_status = input("Enter new case status: ")
@@ -223,13 +209,11 @@ class MainModule:
                     except IncidentIDNotFoundException as e:
                         print(f"Error: {e}")
 
-
                 elif choice == '14':
                     all_cases = crime_analysis_service.getAllCases()
                     print("\nAll Cases:")
                     for case in all_cases:
-                        print(
-                            f"Case ID: {case.get_case_id()}\nCase Description: {case.get_case_description()}\nCase Status: {case.get_case_status()}\n")
+                        print(f"Case ID: {case.get_case_id()}\nCase Description: {case.get_case_description()}\nCase Status: {case.get_case_status()}\n")
 
                 elif choice == '15':
                     case_id = input("Enter case ID to delete: ")
@@ -245,15 +229,12 @@ class MainModule:
                     print("Thank You!")
                     print("Exiting program.")
                     break
-
                 else:
                     print("Invalid choice. Please select a valid option.")
-
         except DatabaseConnectionError as e:
             print(f"Error: {e}")
         except ValueError as e:
             print(f"Error: {e}")
 
-# Call the main method when this script is executed
 if __name__ == "__main__":
     MainModule.main()
